@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Process\Process;
 
 class ZbarQrdecoderServiceProviderLaravel5 extends ServiceProvider {
 
@@ -28,9 +27,8 @@ class ZbarQrdecoderServiceProviderLaravel5 extends ServiceProvider {
 		//$this->app['zbardecoder'] = $this->app->share(function($app)
 		$this->app->singleton('zbardecoder' ,function($app)
 		{
-			$processBuilder = new Process();
 			$config = $app['config']->get('zbar-qrdecoder::config');
-			return new ZbarDecoder($config, $processBuilder);
+			return new ZbarDecoder($config);
 		});
 
 		$this->app->booting(function()

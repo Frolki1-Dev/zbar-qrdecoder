@@ -33,7 +33,6 @@ class ZbarDecoder {
         if(isset($this->config['path'])) {
             $this->setPath($this->config['path']);
         }
-        $this->processBuilder =  is_null($processBuilder) ? new Process() : $processBuilder;
     }
 
     /**
@@ -100,8 +99,14 @@ class ZbarDecoder {
     private function buildProcess()
     {
         $path = $this->getPath();
-        $this->processBuilder->setPrefix($path . DIRECTORY_SEPARATOR . static::EXECUTABLE);
-        $this->processBuilder->setArguments(array('-D', '--xml', '-q', $this->getFilepath()))->enableOutput();
+        $command = [
+            $path . DIRECTORY_SEPARATOR . static::EXECUTABLE,
+            '-D',
+            '--xml',
+            '-q',
+            $this->getFilepath()
+        ];
+        $this->processBuilder = new Process($command);
     }
 
     /**
@@ -110,7 +115,7 @@ class ZbarDecoder {
      */
     private function runProcess()
     {
-        $process = $this->processBuilder->getProcess();
+        $process = $this->processBuilder;
         try {
             $process->mustRun();
             $this->result = new Result($process->getOutput());
