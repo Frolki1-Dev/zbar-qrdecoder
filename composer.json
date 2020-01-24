@@ -28,9 +28,9 @@
             "providers": [
                 "RobbieP\\ZbarQrdecoder\\ZbarQrdecoderServiceProvider"
             ],
-            "aliases": [
-                "ZbarDecoder":, "RobbieP\\ZbarQrdecoder\\Facades"
-            ]
+            "aliases": {
+                "ZbarDecoder": "RobbieP\\ZbarQrdecoder\\Facades"
+            }
         }
     }
 }
