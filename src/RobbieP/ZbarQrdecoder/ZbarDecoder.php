@@ -5,7 +5,7 @@ namespace RobbieP\ZbarQrdecoder;
 use RobbieP\ZbarQrdecoder\Result\ErrorResult;
 use RobbieP\ZbarQrdecoder\Result\Result;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 
 class ZbarDecoder {
 
@@ -15,7 +15,7 @@ class ZbarDecoder {
     private $file_path;
     private $result;
     /**
-     * @var ProcessBuilder
+     * @var Process
      */
     private $processBuilder;
     /**
@@ -25,7 +25,7 @@ class ZbarDecoder {
 
     /**
      * @param array $config
-     * @param ProcessBuilder $processBuilder
+     * @param Process $processBuilder
      */
     function __construct($config = [], $processBuilder = null)
     {
@@ -33,7 +33,7 @@ class ZbarDecoder {
         if(isset($this->config['path'])) {
             $this->setPath($this->config['path']);
         }
-        $this->processBuilder =  is_null($processBuilder) ? new ProcessBuilder() : $processBuilder;
+        $this->processBuilder =  is_null($processBuilder) ? new Process() : $processBuilder;
     }
 
     /**
